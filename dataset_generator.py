@@ -55,7 +55,7 @@ def main():
         "tokenizers/punkt/english.pickle"
     )
 
-    with open(f"mono_{args.dataset_name}_{args.dataset_column}.txt", "w") as f:
+    with open(f"./data/mono_{args.dataset_name}_{args.dataset_column}.txt", "w") as f:
         for text in tqdm(inputs):
             if args.dataset_name == "cnn_dailymail":
                 text = text.strip("(CNN)  -- ")
@@ -68,10 +68,10 @@ def main():
             for sent in sents:
                 length = len(nltk.word_tokenize(sent))  # Should have used BART tokenizer here! Inconsistent!
                 if total_length + length <= args.max_summary_length:
-	                f.write(sent + " ")
+                    f.write(sent + " ")
                     total_length += length
                 else:
-		    f.write("\n")
+                    f.write("\n")
                     break
 
 
