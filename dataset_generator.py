@@ -33,8 +33,7 @@ def parse_args():
     parser.add_argument(
         "--dataset_column",
         type=str,
-        default="highlights",
-        choices=["article", "highlights"],
+        default="article",
     )
     parser.add_argument(
         "--sample_mode", type=str, default="lead", choices=["lead", "random"]
@@ -54,34 +53,26 @@ def main():
 
     tokenizer = nltk.data.load(
         "tokenizers/punkt/english.pickle"
-    )  # Should have used BART tokenizer here! Inconsistent!
+    )
 
     with open(f"mono_{args.dataset_name}_{args.dataset_column}.txt", "w") as f:
-        counter = 0
-        for text in inputs[:1000]:
+        for text in tqdm(inputs):
             if args.dataset_name == "cnn_dailymail":
                 text = text.strip("(CNN)  -- ")
                 text = re.sub(".*\(CNN\)\s*--\s*", "", text)
 
-            sents = list(enumerate(tokenizer.tokenize(text)))
+            sents = tokenizer.tokenize(text)
 
             selected = []
             total_length = 0
             for sent in sents:
-                length = len(nltk.word_tokenize(sent[1]))
-                if total_length + length < args.max_summary_length:
-                    selected.append(sent)
+                length = len(nltk.word_tokenize(sent))  # Should have used BART tokenizer here! Inconsistent!
+                if total_length + length <= args.max_summary_length:
+	                f.write(sent + " ")
                     total_length += length
                 else:
+		    f.write("\n")
                     break
-
-            selected.sort(key=lambda sent: sent[0])
-
-            for sent in selected:
-                f.write(sent[1] + " ")
-            f.write("\n")
-            print(counter, " / ", len(inputs))
-            counter += 1
 
 
 if __name__ == "__main__":
