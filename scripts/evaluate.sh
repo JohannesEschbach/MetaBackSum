@@ -1,7 +1,7 @@
 #!/bin/bash
 
 accelerate test
-accelerate launch evaluate.py \
+accelerate launch ../evaluate.py \
           --model_name_or_path $1 \
           --dataset_name cnn_dailymail \
           --dataset_config "3.0.0" \
