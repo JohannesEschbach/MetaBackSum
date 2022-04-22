@@ -2,6 +2,6 @@
 
 ## Setup
 1. Install the requirements with ```pip install -r requirements.txt```
-2. The Python scripts require the setup of Huggingface's Accelerate. Simply run ```accelerate config``` and answer the questions asked.
+2. Setup Huggingface's Accelerate by running ```accelerate config``` and answering the questions asked.
 
 ## Create Summary Corpus
