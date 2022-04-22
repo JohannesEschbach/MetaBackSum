@@ -37,26 +37,24 @@ def parse_args():
         choices=["article", "highlights"],
     )
     parser.add_argument(
-        "--sample_mode",
-        type=str,
-        default="lead",
-        choices=["lead", "random"],
+        "--sample_mode", type=str, default="lead", choices=["lead", "random"]
     )
 
-    parser.add_argument(
-        "--max-summary-length",
-        type=int,
-        default=148,
-    )
+    parser.add_argument("--max-summary-length", type=int, default=148)
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
-            
-    raw_dataset = load_dataset(args.dataset_name, args.dataset_config_name, split="train")
+
+    raw_dataset = load_dataset(
+        args.dataset_name, args.dataset_config_name, split="train"
+    )
     inputs = raw_dataset[args.dataset_column]
 
-    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle') #Should have used BART tokenizer here! Inconsistent!
+    tokenizer = nltk.data.load(
+        "tokenizers/punkt/english.pickle"
+    )  # Should have used BART tokenizer here! Inconsistent!
 
     with open(f"mono_{args.dataset_name}_{args.dataset_column}.txt", "w") as f:
         counter = 0
@@ -65,7 +63,7 @@ def main():
                 text = text.strip("(CNN)  -- ")
                 text = re.sub(".*\(CNN\)\s*--\s*", "", text)
 
-            sents = list(enumerate(tokenizer.tokenize(text)))                                                                                                                                          
+            sents = list(enumerate(tokenizer.tokenize(text)))
 
             selected = []
             total_length = 0
@@ -77,10 +75,10 @@ def main():
                 else:
                     break
 
-
             selected.sort(key=lambda sent: sent[0])
 
-            for sent in selected: f.write(sent[1] + " ")
+            for sent in selected:
+                f.write(sent[1] + " ")
             f.write("\n")
             print(counter, " / ", len(inputs))
             counter += 1
@@ -88,4 +86,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
