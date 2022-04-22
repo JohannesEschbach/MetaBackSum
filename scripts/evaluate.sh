@@ -7,5 +7,5 @@ accelerate launch ../evaluate.py \
           --dataset_config "3.0.0" \
           --max_source_length 1024 \
           --max_target_length 148 \
-          --processed_data_dir ./data/forward \
+          --processed_data_dir ../data/forward \
           --per_device_batch_size 4 \
