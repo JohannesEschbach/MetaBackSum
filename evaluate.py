@@ -60,6 +60,18 @@ def parse_args():
         help="The configuration name of the dataset to use (via the datasets library).",
     )
     parser.add_argument(
+        "--text_column",
+        type=str,
+        default="article",
+        help="The name of the column in the datasets containing the full texts (for summarization).",
+    )
+    parser.add_argument(
+        "--summary_column",
+        type=str,
+        default="highlights",
+        help="The name of the column in the datasets containing the summaries (for summarization).",
+    )
+    parser.add_argument(
         "--max_source_length",
         type=int,
         default=1024,
@@ -119,17 +131,12 @@ def main():
         datasets.utils.logging.set_verbosity_error()
         transformers.utils.logging.set_verbosity_error()
 
-    if accelerator.is_main_process:
-        if args.output_dir is not None:
-            os.makedirs(args.output_dir, exist_ok=True)
-    accelerator.wait_for_everyone()
-
     raw_datasets = load_dataset(args.dataset_name, args.dataset_config_name)
     config = AutoConfig.from_pretrained(args.model_name_or_path)
 
     # Load tokenizers
     tokenizer = AutoTokenizer.from_pretrained(
-        args.model_name_or_path, use_fast=not args.use_slow_tokenizer
+        args.model_name_or_path, use_fast=True
     )
 
     # Load forward model
@@ -143,20 +150,10 @@ def main():
     # Preprocess the Summarization Dataset
     column_names = raw_datasets["test"].column_names
 
-    # Get the column names for input/target.
-    if args.text_column is None:
-        text_column = "article"
-    else:
-        text_column = args.text_column
-
-    if args.summary_column is None:
-        summary_column = "highlights"
-    else:
-        summary_column = args.summary_column
 
     def preprocess_function(examples):
-        inputs = examples[text_column]
-        targets = examples[summary_column]
+        inputs = examples[args.text_column]
+        targets = examples[args.summary_column]
         model_inputs = tokenizer(
             inputs,
             max_length=args.max_source_length,
@@ -282,7 +279,7 @@ def main():
     # Output [low, mid, high]
     result = metric.compute(use_stemmer=True)
     result = {key: [value.low.fmeasure * 100, value.mid.fmeasure * 100, value.high.fmeasure * 100] for key, value in result.items()}
-    result = {k: round(v, 4) for k, v in result.items()}
+    result = {k: [round(item, 4) for item in v] for k, v in result.items()}
     logger.info(result)
 
 

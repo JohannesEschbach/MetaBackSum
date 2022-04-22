@@ -110,13 +110,13 @@ def parse_args():
     parser.add_argument(
         "--text_column",
         type=str,
-        default=None,
+        default="article",
         help="The name of the column in the datasets containing the full texts (for summarization).",
     )
     parser.add_argument(
         "--summary_column",
         type=str,
-        default=None,
+        default="highlights",
         help="The name of the column in the datasets containing the summaries (for summarization).",
     )
     parser.add_argument(
@@ -216,7 +216,7 @@ def main():
 
     # Load tokenizers
     tokenizer = AutoTokenizer.from_pretrained(
-        args.model_name_or_path, use_fast=not args.use_slow_tokenizer
+        args.model_name_or_path, use_fast=True
     )
 
     # Load forward model
@@ -239,20 +239,10 @@ def main():
     # Preprocess the Summarization Dataset
     column_names = raw_datasets["train"].column_names
 
-    # Get the column names for input/target.
-    if args.text_column is None:
-        text_column = "article"
-    else:
-        text_column = args.text_column
-
-    if args.summary_column is None:
-        summary_column = "highlights"
-    else:
-        summary_column = args.summary_column
 
     def preprocess_function(examples):
-        inputs = examples[text_column]
-        targets = examples[summary_column]
+        inputs = examples[args.text_column]
+        targets = examples[args.summary_column]
         model_inputs = tokenizer(
             inputs,
             max_length=args.max_source_length,
