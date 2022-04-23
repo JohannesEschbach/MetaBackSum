@@ -1,7 +1,7 @@
 # MetaBackSum
 
 ## Setup
-0. Create a virtual environment.
+0. Create a virtual environment and activate it.
 1. Install the requirements with ```pip install -r requirements.txt```
 2. Setup Huggingface's Accelerate by running ```accelerate config``` and answering the questions asked.
 
