@@ -10,6 +10,7 @@ import random
 from pathlib import Path
 import random
 import re
+import tqdm
 import datasets
 import numpy as np
 import nltk
