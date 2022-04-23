@@ -21,22 +21,19 @@ def parse_args():
     parser.add_argument(
         "--dataset_name",
         type=str,
-        default=None,
+        default="cnn_dailymail",
         help="The name of the dataset to use (via the datasets library).",
     )
     parser.add_argument(
         "--dataset_config_name",
         type=str,
-        default=None,
+        default="3.0.0",
         help="The configuration name of the dataset to use (via the datasets library).",
     )
     parser.add_argument(
         "--dataset_column",
         type=str,
         default="article",
-    )
-    parser.add_argument(
-        "--sample_mode", type=str, default="lead", choices=["lead", "random"]
     )
 
     parser.add_argument("--max-summary-length", type=int, default=148)

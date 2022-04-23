@@ -280,6 +280,7 @@ def main():
     result = metric.compute(use_stemmer=True)
     result = {key: [value.low.fmeasure * 100, value.mid.fmeasure * 100, value.high.fmeasure * 100] for key, value in result.items()}
     result = {k: [round(item, 4) for item in v] for k, v in result.items()}
+    logger.info("\n\n ROUGE RESULTS: \n")
     logger.info(result)
 
 
