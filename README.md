@@ -1,6 +1,7 @@
 # MetaBackSum
 
 ## Setup
+0. Create a virtual environment.
 1. Install the requirements with ```pip install -r requirements.txt```
 2. Setup Huggingface's Accelerate by running ```accelerate config``` and answering the questions asked.
 
@@ -15,4 +16,13 @@ python dataset_generator.py \
 Feel free to use any other dataset listed on https://huggingface.co/datasets. 
 
 ## Pretrain Backward Model
-Run 
+For all models other than the baseline a pretrained backward model is required. Run [pretrain_back_model.sh](scripts/pretrain_back_model.sh).
+
+## Train Models
+The [scripts directory](scripts) contains all shell scripts for training of all model variations in the report.
+
+## Evaluate Models
+Run [evaluate.sh](scripts/evaluate.sh) with the model path as argument to obtain Rouge score confidence intervals:
+```
+./scripts/evaluate.sh models/backsum_no_meta
+```
