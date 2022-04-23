@@ -13,3 +13,6 @@ python dataset_generator.py \
   --dataset_column "article"
 ```
 Feel free to use any other dataset listed on https://huggingface.co/datasets. 
+
+## Pretrain Backward Model
+Run 
