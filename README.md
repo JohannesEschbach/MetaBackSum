@@ -19,7 +19,8 @@ Feel free to use any other dataset listed on https://huggingface.co/datasets.
 For all models other than the baseline a pretrained backward model is required. Run [pretrain_back_model.sh](scripts/pretrain_back_model.sh).
 
 ## Train Models
-The [scripts directory](scripts) contains all shell scripts for training of all model variations in the report.
+The [scripts directory](scripts) contains all shell scripts for training.
+To train the various configurations execute ```train_backsum.sh {MODE}```. Insert for MODE "base", "nometa", "metahard" or "metadist".
 
 ## Evaluate Models
 Run [evaluate.sh](scripts/evaluate.sh) with the model path as argument to obtain Rouge score confidence intervals:
