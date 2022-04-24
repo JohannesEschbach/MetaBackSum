@@ -20,7 +20,8 @@ For all models other than the baseline a pretrained backward model is required. 
 
 ## Train Models
 The [scripts directory](scripts) contains all shell scripts for training.
-To train the various configurations execute ```train_backsum.sh {MODE}```. Insert for MODE "base", "nometa", "metahard" or "metadist".
+To train the various configurations execute ```train_backsum.sh {MODE}```. 
+Insert for MODE the name of the desired configuration: "base", "nometa", "metahard" or "metadist".
 
 ## Evaluate Models
 Run [evaluate.sh](scripts/evaluate.sh) with the model path as argument to obtain Rouge score confidence intervals:
