@@ -105,7 +105,6 @@ def parse_args():
         "--back_model_path",
         type=str,
         help="Path to pretrained backward model.",
-        required=True,
     )
     parser.add_argument(
         "--text_column",
@@ -172,8 +171,8 @@ def parse_args():
         default=None,
         help="Where to store the final backward model.",
     )
-    parser.add_argument("--processed_data_dir", type=str, required=True)
-    parser.add_argument("--processed_mono_data_dir", type=str, required=True)
+    parser.add_argument("--processed_data_dir", type=str)
+    parser.add_argument("--processed_mono_data_dir", type=str)
     parser.add_argument("--dataset_perc", type=float, default=0.03)
     parser.add_argument(
         "--train_mode", type=str, choices=["base", "nometa", "metahard", "metadist"]
