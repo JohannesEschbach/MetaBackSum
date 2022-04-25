@@ -408,14 +408,15 @@ def main():
     logger.info("***** Running training *****")
     logger.info(f"  Num examples = {len(train_dataset)}")
     logger.info(f"  Num Epochs = {args.num_train_epochs}")
+    max_train_steps = len(train_dataset) * args.num_train_epochs
     logger.info(f"  Instantaneous batch size per device = {args.per_device_batch_size}")
     logger.info(
         f"  Total train batch size (w. parallel, distributed & accumulation) = {total_batch_size}"
     )
-    logger.info(f"  Total optimization steps = {args.max_train_steps}")
+    logger.info(f"  Total optimization steps = {max_train_steps}")
     # Only show the progress bar once on each machine.
     progress_bar = tqdm(
-        range(args.max_train_steps), disable=not accelerator.is_local_main_process
+        range(max_train_steps), disable=not accelerator.is_local_main_process
     )
 
     # Logger Variables
