@@ -404,7 +404,7 @@ def main():
     metric = load_metric("rouge")
 
     # Train!
-    total_batch_size = args.per_device_train_batch_size * accelerator.num_processes
+    total_batch_size = args.per_device_batch_size * accelerator.num_processes
     logger.info("***** Running training *****")
     logger.info(f"  Num examples = {len(train_dataset)}")
     logger.info(f"  Num Epochs = {args.num_train_epochs}")
