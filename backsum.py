@@ -430,9 +430,10 @@ def main():
     reward_mv_avg = 0.0
 
     # Maximum Entropy
-    vocab_size = accelerator.unwrap_model(back_model).config.vocab_size
-    logger.info(f" Vocab size: {vocab_size}")
-    max_ent = math.log(1 / vocab_size)
+    if BACK:
+        vocab_size = accelerator.unwrap_model(back_model).config.vocab_size
+        logger.info(f" Vocab size: {vocab_size}")
+        max_ent = math.log(1 / vocab_size)
 
     # Generation Keywords
     back_gen_kwargs = {"max_length": args.max_source_length}
