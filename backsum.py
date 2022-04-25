@@ -547,10 +547,7 @@ def main():
                 accelerator.backward(loss)
                 back_loss_for_logger += loss
                 back_optimizer.step()
-                back_lr_scheduler.step()
-
-                progress_bar.update(1)
-                completed_steps += 1
+                back_lr_scheduler.step()                
 
                 # Check Backmodel Output occasionally
                 if completed_steps % 500 == 0 or (
@@ -593,6 +590,8 @@ def main():
                         logger.info("GENERATED DOC:\n" + str(decoded_preds[0]) + "\n")
                     back_model.train()
 
+            progress_bar.update(1)
+            completed_steps += 1
             if completed_steps % 20 == 0:
                 logger.info(
                     f" Step: {completed_steps}; Loss (Ground Truth): {loss_for_logger/20}; Loss (Generated): {loss_on_generated_for_logger/20}; Loss (Back Model): {back_loss_for_logger/20}"
