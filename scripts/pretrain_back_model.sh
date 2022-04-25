@@ -1,6 +1,7 @@
 #!/bin/bash
 
-cd ${BASH_SOURCE[0]}
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+cd "$parent_path"
 cd ../
 accelerate test
 accelerate launch backsum.py \
