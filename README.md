@@ -26,5 +26,5 @@ Insert for ```{MODE}``` the name of the desired configuration: ```base```, ```no
 ## Evaluate Models
 Run [evaluate.sh](scripts/evaluate.sh) with the model path as argument to obtain Rouge score confidence intervals:
 ```
-./scripts/evaluate.sh models/backsum_no_meta
+./scripts/evaluate.sh models/nometa
 ```
