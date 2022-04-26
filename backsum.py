@@ -528,7 +528,7 @@ def main():
                 if args.train_mode == "metahard":
                     softmax_probs = torch.clamp(
                         softmax_probs, min=1e-9, max=1 - 1e-9
-                    )  # Max was unnecessary. Min is important due to 0*log(0) of entropy calculation
+                    )  # Max was unnecessary. Min is important due to 0*log(0) of entropy calculation. Probably could have used low temperature instead of hard sampling right away
                 if args.train_mode == "metadist":
                     softmax_probs = torch.nn.functional.softmax(backward_logits, dim=-1)
                 # Average of Sum of Entropies of Vocabulary distributions of each Token
