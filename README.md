@@ -24,7 +24,7 @@ To train the various configurations execute ```train_backsum.sh {MODE}```.
 Insert for ```{MODE}``` the name of the desired configuration: ```base```, ```nometa```, ```metahard``` or ```metadist```.
 
 ## Evaluate Models
-Run [evaluate.sh](scripts/evaluate.sh) with the model path as argument to obtain Rouge score confidence intervals:
+Run [evaluate.sh](scripts/evaluate.sh) with the model configuration as argument to obtain Rouge score confidence intervals:
 ```
-./scripts/evaluate.sh models/nometa
+./scripts/evaluate.sh nometa
 ```
