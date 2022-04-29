@@ -278,7 +278,7 @@ def main():
         processed_datasets = load_from_disk(args.processed_data_dir)
 
     # Scarcify Dataset
-    random.seed(42)
+    random.seed(42) #Ensure that always same split
     train_dataset = processed_datasets["train"].select(
         random.sample(
             range(len(processed_datasets["train"])),
@@ -286,7 +286,7 @@ def main():
         )
     )
 
-    # Reduce evaluation-set size to speed things up
+    # Reduce validation-set size to speed things up
     eval_dataset = processed_datasets["validation"].select(
         random.sample(
             range(len(processed_datasets["validation"])),
